@@ -2,7 +2,7 @@
 export CFLAGS+=-g -O0 -Wall -D_GNU_SOURCE
 
 DISTRO := $(shell ./os_detect)
-MODE := $(shell [ $(shell uname -i) == "i386" ] && echo "32" || echo "64")
+MODE := 64
 
 TESTS := \
 	exec_execve \
