@@ -5,7 +5,7 @@ LDLIBS += -lpthread
 all: $(TARGETS)
 
 conn: conn.c
-	$(CC) $(CFLAGS) -m32 -o $@ $^
+	$(CC) $(CFLAGS) -o $@ $^
 
 clean:
 	rm -f $(TARGETS)
