@@ -44,7 +44,7 @@ my $result;
 # audit all open() syscalls on 64-bit systems
 my $key = key_gen();
 $result = system(
-    "auditctl -a always,exit -F arch=b$ENV{MODE} -S open -S openat -k $key");
+    "auditctl -a always,exit -F arch=b$ENV{MODE} -S openat -k $key");
 ok( $result, 0 );
 
 # create a new file
@@ -64,7 +64,7 @@ while ( $line = <$fh_out> ) {
 
     # test if we generate a SYSCALL record
     if ( $line =~ /^type=SYSCALL /
-        and ( $line =~ / syscall=open / or $line =~ / syscall=openat / ) )
+        and ( $line =~ / syscall=openat / ) )
     {
         $found_syscall = 1;
     }
