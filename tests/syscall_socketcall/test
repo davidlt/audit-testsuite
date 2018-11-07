@@ -51,7 +51,7 @@ system("auditctl -D >& /dev/null");
 my $key = key_gen();
 
 # connect
-system("auditctl -a always,exit -F arch=b32 -S socketcall -F a0=3 -k $key");
+system("auditctl -a always,exit -F arch=b64 -S connect -k $key");
 
 my $portno = 42424;
 
@@ -82,8 +82,10 @@ while ( $line = <$fh_out> ) {
             seek( $fh_out2, 0, 0 );
             system( "ausearch -i -k $key -a $id" . " > $stdout2 2> $stderr2" );
             while ( $line2 = <$fh_out2> ) {
-                if ( $line2 =~ /^type=SOCKETCALL / ) {
-                    $found_socketcall = 1;
+                if ( $line2 =~ /^type=SYSCALL / ) {
+                    if ( $line2 =~ / syscall=connect / ) {
+                        $found_socketcall = 1;
+                    }
                 }
             }
         }
